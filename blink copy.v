@@ -6,9 +6,8 @@ module Blink #(
     output reg [7:0] leds
 );
 
-
 localparam ONE_SECOND  = CLK_FREQ;
-localparam HALF_SECOND = CLK_FREQ / 2;
+localparam HALF_SECOND = CLK_FREQ / 10; // Pisca 10x por segundo
 
 reg [31:0] counter;
 
@@ -19,13 +18,11 @@ always @(posedge clk ) begin
     end else begin
         if (counter >= HALF_SECOND - 1) begin
             counter <= 32'h0;
-            leds[0]     <= ~leds[0];
+            leds[0] <= ~leds[0];
         end else begin
             counter <= counter + 1;
         end
     end
 end
-    
-endmodule
- 
 
+endmodule
